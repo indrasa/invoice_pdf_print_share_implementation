@@ -17,10 +17,16 @@ class Aplikasi extends StatelessWidget {
         child: Column(
           children: [
             TextButton(
+              onPressed: () async {
+                await pdfGenerator.simpanLaluBukaPDF();
+              },
+              child: Text("Simpan PDF"),
+            ),
+            TextButton(
                 onPressed: () async {
-                  await pdfGenerator.simpanLaluBukaPDF();
+                  await pdfGenerator.cetakPDF();
                 },
-                child: Text("Simpan PDF"))
+                child: Text("Cetak PDF"))
           ],
         ),
       ),

@@ -7,24 +7,26 @@ import 'package:printing/printing.dart';
 
 class PdfGenerator {
   //ini global, akan dipakai di beberapa tempat
-  final pdf = pw.Document();
+//   final pdf = pw.Document();
 
-// khusus ngerjain buat pdf
-  Future<void> buatPDF() async {
-    print("membuat pdf baru");
+// // khusus ngerjain buat pdf
+//   Future<pw.Document> buatPDF() async {
+//     print("membuat pdf baru");
 
-    pdf.addPage(pw.Page(
-        pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) {
-          return pw.Center(
-            child: pw.Text("Hello Cuk"),
-          ); // Center
-        })); // Page
-  }
+//     pdf.addPage(pw.Page(
+//         pageFormat: PdfPageFormat.roll80,
+//         build: (pw.Context context) {
+//           return pw.Center(
+//             child: pw.Text("Hello Cuk"),
+//           ); // Center
+//         }));
+//     return pdf; // Page
+//   }
 
-  // khusus simpan dan buka
+//   // khusus simpan dan buka
   Future<void> simpanLaluBukaPDF() async {
-    buatPDF();
+    final pdf = pw.Document();
+    isiHalaman(pdf);
     final output = await getTemporaryDirectory();
     final file = File("${output.path}/example.pdf");
     // final file = File("example.pdf");
@@ -33,7 +35,23 @@ class PdfGenerator {
     OpenFile.open(file.path);
   }
 
-  // void cetakPDF() {
-  //   Printing.layoutPdf(onLayout: )
-  // }
+  Future<void> cetakPDF() async {
+    print("mencetak pdf");
+    final pdf = pw.Document();
+    isiHalaman(pdf);
+    await Printing.layoutPdf(
+      onLayout: (format) async => pdf.save(),
+    );
+  }
+
+// fungsi ini dipakai dibeberapa tempat
+  void isiHalaman(pw.Document pdf) {
+    pdf.addPage(pw.Page(
+        pageFormat: PdfPageFormat.roll80,
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Text("Hello Cuk"),
+          ); // Center
+        }));
+  }
 }
