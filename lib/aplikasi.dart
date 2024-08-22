@@ -26,7 +26,12 @@ class Aplikasi extends StatelessWidget {
                 onPressed: () async {
                   await pdfGenerator.cetakPDF();
                 },
-                child: Text("Cetak PDF"))
+                child: Text("Cetak PDF")),
+            TextButton(
+                onPressed: () async {
+                  await pdfGenerator.sharePDF();
+                },
+                child: Text("Share PDF")),
           ],
         ),
       ),
