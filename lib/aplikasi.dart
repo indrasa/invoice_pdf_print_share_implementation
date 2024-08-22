@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:invoice_pdf_print_share_implementation/pdf_page.dart';
+import 'package:invoice_pdf_print_share_implementation/pdf_generator.dart';
+import 'package:open_file/open_file.dart';
 
 class Aplikasi extends StatelessWidget {
-  const Aplikasi({super.key});
+  Aplikasi({super.key});
+  PdfGenerator pdfGenerator = PdfGenerator();
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +17,10 @@ class Aplikasi extends StatelessWidget {
         child: Column(
           children: [
             TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PdfPage(),
-                      ));
+                onPressed: () async {
+                  await pdfGenerator.simpanLaluBukaPDF();
                 },
-                child: Text("Coba PDF"))
+                child: Text("Simpan PDF"))
           ],
         ),
       ),
